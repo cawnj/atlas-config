@@ -108,6 +108,26 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKERCONFDIR}/prowlarr:/config
 
+  flaresolverr:
+    container_name: flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    labels:
+      - org.hotio.pullio.update=${PULLIO_UPDATE}
+      - org.hotio.pullio.notify=${PULLIO_NOTIFY}
+      - org.hotio.pullio.discord.webhook=${PULLIO_DISCORD_WEBHOOK}
+    ports:
+      - 8191:8191
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
   rdtclient:
     container_name: rdtclient
     image: rogerfar/rdtclient
@@ -176,6 +196,8 @@ services:
       - org.hotio.pullio.discord.webhook=${PULLIO_DISCORD_WEBHOOK}
     ports:
       - 6880:6880
+    environment:
+      - TZ=${TZ}
     volumes:
       - /etc/localtime:/etc/localtime:ro
 
