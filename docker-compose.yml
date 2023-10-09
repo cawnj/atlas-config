@@ -151,6 +151,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKERCONFDIR}/rdtclient:/data/db
+      - ${DOCKERSTORAGEDIR}:/data
 
   aria2:
     container_name: aria2
